@@ -32,7 +32,8 @@ if not CALENDLY_TOKEN:
         in your shell before running this server."""
     )
 
-mcp = FastMCP("calendly")
+port = int(os.environ.get("PORT", 8080))
+mcp = FastMCP("calendly", host="0.0.0.0", port=port)
 
 _user_uri_cache: Optional[str] = None
 
@@ -188,5 +189,4 @@ async def create_scheduling_link(event_type_uri: str, max_event_count: int = 1) 
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+    mcp.run(transport="streamable-http")
